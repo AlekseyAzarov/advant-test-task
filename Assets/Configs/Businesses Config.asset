@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa95070345d3d84186f80eee2fb1588, type: 3}
+  m_Name: Businesses Config
+  m_EditorClassIdentifier: 
+  _businessConfigs:
+  - Id: business_1
+    ProfitDelay: 3
+    BasePrice: 3
+    BaseProfit: 3
+    Upgrades:
+    - Id: upgrade_1
+      BasePrice: 50
+      BaseProfitMultiplier: 0.5
+    - Id: upgrade_2
+      BasePrice: 400
+      BaseProfitMultiplier: 1
+  - Id: business_2
+    ProfitDelay: 6
+    BasePrice: 40
+    BaseProfit: 40
+    Upgrades:
+    - Id: upgrade_1
+      BasePrice: 1200
+      BaseProfitMultiplier: 1
+    - Id: upgrade_2
+      BasePrice: 4000
+      BaseProfitMultiplier: 2
+  - Id: business_3
+    ProfitDelay: 10
+    BasePrice: 200
+    BaseProfit: 200
+    Upgrades:
+    - Id: upgrade_1
+      BasePrice: 600
+      BaseProfitMultiplier: 1
+    - Id: upgrade_2
+      BasePrice: 20000
+      BaseProfitMultiplier: 1.5
+  - Id: business_4
+    ProfitDelay: 17
+    BasePrice: 1000
+    BaseProfit: 1000
+    Upgrades:
+    - Id: upgrade_1
+      BasePrice: 15000
+      BaseProfitMultiplier: 1
+    - Id: upgrade_2
+      BasePrice: 50000
+      BaseProfitMultiplier: 2
+  - Id: business_5
+    ProfitDelay: 30
+    BasePrice: 5000
+    BaseProfit: 5000
+    Upgrades:
+    - Id: upgrade_1
+      BasePrice: 100000
+      BaseProfitMultiplier: 2
+    - Id: upgrade_2
+      BasePrice: 500000
+      BaseProfitMultiplier: 4
+  _ownedBusinessesAtStart: 1
