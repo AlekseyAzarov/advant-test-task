@@ -16,11 +16,11 @@ namespace ClickerLogic
 
         private void Start()
         {
-            ConfigureViewsController();
-
             var world = new EcsWorld();
             var eventBus = new EventsBus();
             var sharedData = new SharedData(eventBus);
+
+            ConfigureViewsController(eventBus);
 
             _systems = new EcsSystems(world, sharedData);
 
@@ -42,10 +42,10 @@ namespace ClickerLogic
             _systems = null;
         }
 
-        private void ConfigureViewsController()
+        private void ConfigureViewsController(EventsBus eventsBus)
         {
             var views = _viewsPrefabsContainer.ViewsPrefabs;
-            var viewsFactory = new ViewFactory(views);
+            var viewsFactory = new ViewFactory(views, eventsBus);
             _viewsController.SetViewsFactory(viewsFactory);
         }
 

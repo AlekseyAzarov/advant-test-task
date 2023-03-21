@@ -1,14 +1,11 @@
 using Leopotam.EcsLite;
-using SevenBoldPencil.EasyEvents;
 using System.Collections.Generic;
 
 namespace ClickerLogic
 {
-
     public class BusinessesInitSystem : IEcsInitSystem, IEcsDestroySystem
     {
         private BusinessesConfig _businessesConfig;
-        private EventsBus _eventsBus;
         private ISaveService _saveService;
         private IViewsController _viewsController;
 
@@ -26,8 +23,6 @@ namespace ClickerLogic
             var businessesPool = world.GetPool<BusinessComponent>();
 
             var businessView = _viewsController.ShowView<BusinessesView>();
-
-            _eventsBus = sharedData.EventsBus;
 
             var businessesAtStart = _businessesConfig.OwnedBusinessesAtStart;
             var savedData = new List<BusinessDataSave>();
@@ -82,9 +77,6 @@ namespace ClickerLogic
                 businessComponent.CurrentPrice.Value = currentPrice;
                 businessComponent.CurrentProfit.Value = currentProfit;
 
-                businessComponent.View.LevelUpClicked += OnBusinessLevelUp;
-                businessComponent.View.UpgradeClicked += OnBusinessUpgrading;
-
                 if (!isSaveExists) continue;
 
                 foreach (var upgrade in save.Upgrades)
@@ -109,27 +101,7 @@ namespace ClickerLogic
                 businessComponent.CurrentLevel.Changed -= businessComponent.OnLevelChanged;
                 businessComponent.CurrentPrice.Changed -= businessComponent.OnCurrentPriceChanged;
                 businessComponent.CurrentProfit.Changed -= businessComponent.OnCurrentProfitChanged;
-
-                businessComponent.View.LevelUpClicked -= OnBusinessLevelUp;
-                businessComponent.View.UpgradeClicked -= OnBusinessUpgrading;
             }
-        }
-
-        private void OnBusinessLevelUp(string businessId)
-        {
-            _eventsBus.NewEvent<BusinessLevelUpEvent>() = new BusinessLevelUpEvent
-            {
-                BusinessId = businessId
-            };
-        }
-
-        private void OnBusinessUpgrading(string businessId, string upgradeId)
-        {
-            _eventsBus.NewEvent<BusinessUpgradingEvent>() = new BusinessUpgradingEvent
-            {
-                BusinessId = businessId,
-                UpgradeId = upgradeId
-            };
         }
     }
 }

@@ -1,3 +1,4 @@
+using SevenBoldPencil.EasyEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,6 @@ namespace ClickerLogic
 {
     public class BusinessUiWidget : MonoBehaviour
     {
-        public event Action<string> LevelUpClicked;
-        public event Action<string, string> UpgradeClicked;
-
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private Slider _profitProgress;
         [SerializeField] private TextMeshProUGUI _levelText;
@@ -24,6 +22,7 @@ namespace ClickerLogic
         private List<UpgradeWidget> _upgradeWidgets = new List<UpgradeWidget>();
         private BusinessesNamesConfig _businessesNamesConfig;
         private TextTermsConfig _textTermsConfig;
+        private EventsBus _eventsBus;
         private string _businessId;
 
         private void Start()
@@ -39,6 +38,12 @@ namespace ClickerLogic
             {
                 upgradeWidget.UpgradeClicked -= OnUpgradeClicked;
             }
+        }
+
+        public BusinessUiWidget SetEventsBus(EventsBus eventsBus)
+        {
+            _eventsBus = eventsBus;
+            return this;
         }
 
         public BusinessUiWidget SetBusinessesNamesConfig(BusinessesNamesConfig businessesNamesConfig)
@@ -132,12 +137,19 @@ namespace ClickerLogic
 
         private void OnLevelUpButtonClicked()
         {
-            LevelUpClicked?.Invoke(_businessId);
+            _eventsBus.NewEvent<BusinessLevelUpEvent>() = new BusinessLevelUpEvent
+            {
+                BusinessId = _businessId
+            };
         }
 
         private void OnUpgradeClicked(string upgradeId)
         {
-            UpgradeClicked?.Invoke(_businessId, upgradeId);
+            _eventsBus.NewEvent<BusinessUpgradingEvent>() = new BusinessUpgradingEvent
+            {
+                BusinessId = _businessId,
+                UpgradeId = upgradeId
+            };
         }
     }
 }

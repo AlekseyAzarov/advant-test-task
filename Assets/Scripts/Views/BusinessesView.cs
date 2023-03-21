@@ -12,9 +12,10 @@ namespace ClickerLogic
 
         public BusinessUiWidget AddBusinessWidget()
         {
-            var widget = Instantiate(_businessWidgetPrefab, _widgetsParent);
-            widget.SetBusinessesNamesConfig(_businessesNamesConfig);
-            widget.SetTextTermsConfig(_textTermsConfig);
+            var widget = Instantiate(_businessWidgetPrefab, _widgetsParent)
+                .SetEventsBus(EventsBus)
+                .SetBusinessesNamesConfig(_businessesNamesConfig)
+                .SetTextTermsConfig(_textTermsConfig);
             return widget;
         }
 
